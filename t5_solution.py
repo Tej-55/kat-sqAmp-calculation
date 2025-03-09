@@ -91,6 +91,7 @@ def main():
         print(f"Correct: {pred == target}")
 
     # Save the model and tokenizer
+    os.makedirs(args.model_dir, exist_ok=True)
     torch.save(trained_model.state_dict(), os.path.join(args.model_dir, 'amplitude_model.pth'))
     tokenizer.save_pretrained(os.path.join(args.model_dir, 'amplitude_tokenizer'))
 
