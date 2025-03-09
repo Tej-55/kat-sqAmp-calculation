@@ -76,6 +76,7 @@ def main():
     trained_model, history = train_model(model, train_loader, val_loader, epochs=args.num_epochs, lr=args.lr)
 
     # Plot training history
+    os.makedirs(args.model_dir, exist_ok=True)
     plot_training_history(history, os.path.join(args.model_dir, 'training_history.png'))
     
     # Evaluate on test set
@@ -91,7 +92,6 @@ def main():
         print(f"Correct: {pred == target}")
 
     # Save the model and tokenizer
-    os.makedirs(args.model_dir, exist_ok=True)
     torch.save(trained_model.state_dict(), os.path.join(args.model_dir, 'amplitude_model.pth'))
     tokenizer.save_pretrained(os.path.join(args.model_dir, 'amplitude_tokenizer'))
 
