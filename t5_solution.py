@@ -96,3 +96,6 @@ def main():
     tokenizer.save_pretrained(os.path.join(args.model_dir, 'amplitude_tokenizer'))
 
     print("Model and tokenizer saved successfully!")
+    
+if __name__ == "__main__":
+    main()
