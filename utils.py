@@ -76,7 +76,7 @@ def train_model(model, train_loader, val_loader, epochs=3, lr=5e-5):
     
     return model, history
 
-def plot_training_history(history):    
+def plot_training_history(history, save_path=None):    
     plt.figure(figsize=(10, 6))
     plt.plot(history['train_loss'], label='Training Loss')
     plt.plot(history['val_loss'], label='Validation Loss')
@@ -86,6 +86,8 @@ def plot_training_history(history):
     plt.legend()
     plt.grid(True)
     plt.show()
+    if save_path:
+        plt.savefig(save_path)
     
 def evaluate_sequence_accuracy(model, data_loader, tokenizer):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')

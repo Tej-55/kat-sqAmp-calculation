@@ -76,7 +76,7 @@ def main():
     trained_model, history = train_model(model, train_loader, val_loader, epochs=args.num_epochs, lr=args.lr)
 
     # Plot training history
-    plot_training_history(history)
+    plot_training_history(os.path.join(args.model_dir, 'training_history.png'))
     
     # Evaluate on test set
     test_accuracy, sample_predictions, sample_targets = evaluate_sequence_accuracy(trained_model, test_loader, tokenizer)
