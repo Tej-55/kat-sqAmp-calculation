@@ -11,7 +11,7 @@ import argparse
 
 def input_args():
     parser = argparse.ArgumentParser(description='Train a T5 model for amplitude data')
-    parser.add_argument('--batch_size', type=int, default=32, help='Batch size for training')
+    parser.add_argument('--batch_size', type=int, default=8, help='Batch size for training')
     parser.add_argument('--num_epochs', type=int, default=2, help='Number of epochs for training')
     parser.add_argument('--lr', type=float, default=5e-5, help='Learning rate for training')
     #parser.add_argument('--max_length', type=int, default=512, help='Maximum input length for the model')
