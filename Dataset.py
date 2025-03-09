@@ -1,8 +1,9 @@
 from torch.utils.data import Dataset
+from typing import List, Callable
 
 # Define the dataset class for amplitude data
 class AmplitudeDataset(Dataset):
-    def __init__(self, amplitudes, squared_amplitudes, tokenizer, max_length=512):
+    def __init__(self, amplitudes: List, squared_amplitudes: List, tokenizer: Callable, max_length: int = 512):
         self.tokenizer = tokenizer
         self.amplitudes = amplitudes
         self.squared_amplitudes = squared_amplitudes
@@ -11,7 +12,7 @@ class AmplitudeDataset(Dataset):
     def __len__(self):
         return len(self.amplitudes)
     
-    def __getitem__(self, idx):
+    def __getitem__(self, idx: int):
         amplitude = ' '.join(self.amplitudes[idx])
         squared_amplitude = ' '.join(self.squared_amplitudes[idx])
         

@@ -40,6 +40,7 @@ def main():
     # Add special tokens for mathematical expressions
     special_tokens = ['*', '/', '+', '-', '^', '(', ')', '{', '}', '_', 'gamma', 'sigma', 'e^2']
     tokenizer.add_tokens(special_tokens)
+    tokenizer.add_tokens(['[START]'])
     model.resize_token_embeddings(len(tokenizer))
     print(f"Vocabulary size after adding special tokens: {len(tokenizer)}")
     print(f"Special tokens added: {special_tokens}")
@@ -76,7 +77,7 @@ def main():
     # Train the model
     # Initialize TITANS model
     vocab_size = len(tokenizer)
-    titans_model = TitansModel(vocab_size=vocab_size)
+    titans_model = TitansModel(vocab_size=vocab_size, start_token_id = tokenizer.convert_tokens_to_ids('[START]'))
     
     # Set epochs to a small number for initial testing, increase for better results
     trained_titans_model, history = train_titans_model(titans_model, tokenizer, train_loader, val_loader, epochs=args.num_epochs, lr=args.lr)
