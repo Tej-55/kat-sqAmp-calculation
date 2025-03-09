@@ -79,7 +79,7 @@ def main():
     plot_training_history(history)
     
     # Evaluate on test set
-    test_accuracy, sample_predictions, sample_targets = evaluate_sequence_accuracy(trained_model, test_loader)
+    test_accuracy, sample_predictions, sample_targets = evaluate_sequence_accuracy(trained_model, test_loader, tokenizer)
     print(f"Test sequence accuracy: {test_accuracy:.4f}")
 
     # Display some example predictions
