@@ -45,11 +45,11 @@ def main():
     set_seed(seed)
     
     # Load the data 
-    file_paths = [f"{source_dir}\QED-2-to-2-diag-TreeLevel-{i}.txt" for i in range(0, 10)]
+    file_paths = [f"{source_dir}/QED-2-to-2-diag-TreeLevel-{i}.txt" for i in range(0, 10)]
     df = load_data(file_paths)    
     
     # Initialize tokenizer and model
-    tokenizer, src_vocab, tgt_vocab, src_itos, tgt_itos = create_tokenizer(df, index_token_pool_size=100, momentum_token_pool_size=100)
+    tokenizer, src_vocab, tgt_vocab, src_itos, tgt_itos = create_tokenizer(df, index_pool_size=100, momentum_pool_size=100)
     data = get_data(df, tokenizer, src_vocab, tgt_vocab, max_len=max_length)
     
     train_loader = DataLoader(data['train'], batch_size=batch_size, shuffle=True)

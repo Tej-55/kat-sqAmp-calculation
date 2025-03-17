@@ -2,7 +2,7 @@ import re
 from itertools import cycle
 from collections import Counter, OrderedDict
 import random
-from torchtext.vocab import Vocab as vocab
+from torchtext.vocab import vocab # type: ignore
 
 # Special token indices
 BOS_IDX = 0  # Beginning of Sequence

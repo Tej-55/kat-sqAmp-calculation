@@ -24,20 +24,20 @@ def load_data(file_paths):
 def get_data(data, tokenizer, src_vocab, tgt_vocab, max_len, split = [0.8, 0.1, 0.1]):
     df_train, temp_df = train_test_split(data, test_size=1-split[0], random_state=42)
     df_valid, df_test = train_test_split(temp_df, test_size=(split[1]/(split[1]+split[2])), random_state=42)
-    train = AmplitudeDataset(df_train, tokenizer, src_vocab, tgt_vocab, max_len=max_len)
-    test = AmplitudeDataset(df_test, tokenizer, src_vocab, tgt_vocab, max_len=max_len)
-    valid = AmplitudeDataset(df_valid, tokenizer, src_vocab, tgt_vocab, max_len=max_len)
+    train = AmplitudeDataset(df_train, tokenizer, max_len=max_len, src_vocab=src_vocab, tgt_vocab=tgt_vocab)
+    test = AmplitudeDataset(df_test, tokenizer, max_len=max_len, src_vocab=src_vocab, tgt_vocab=tgt_vocab)
+    valid = AmplitudeDataset(df_valid, tokenizer, max_len=max_len, src_vocab=src_vocab, tgt_vocab=tgt_vocab)
 
     return {'train': train, 'test': test, 'valid': valid}
 
 # Define the dataset class for amplitude data
 class AmplitudeDataset(Dataset):
-    def __init__(self, data: pd.DataFrame, tokenizer: Callable, max_length: int = 512, src_vocab=None, tgt_vocab=None):
+    def __init__(self, data: pd.DataFrame, tokenizer: Callable, max_len: int = 512, src_vocab=None, tgt_vocab=None):
         super(AmplitudeDataset, self).__init__()
         self.tokenizer = tokenizer
         self.amplitudes = data['amplitude'].tolist()
         self.squared_amplitudes = data['squared_amplitude'].tolist()
-        self.max_length = max_length
+        self.max_len = max_len
         self.tgt_tokenize = tokenizer.tgt_tokenize
         self.src_tokenize = tokenizer.src_tokenize
         self.bos_token = torch.tensor([BOS_IDX], dtype=torch.int64)
@@ -56,8 +56,8 @@ class AmplitudeDataset(Dataset):
         tgt_ids = self.tgt_vocab(tgt_tokenized)
 
         # Calculate padding tokens needed
-        src_max_len = self.max_length
-        tgt_max_len = self.max_length
+        src_max_len = self.max_len
+        tgt_max_len = self.max_len
         
         enc_num_padding_tokens = src_max_len - len(src_ids) - 2  # -2 for BOS and EOS
         dec_num_padding_tokens = tgt_max_len - len(tgt_ids) - 1  # -1 for BOS
