@@ -72,8 +72,9 @@ def main():
     plot_training_history(history, os.path.join(model_dir, 'training_history.png'))
     
     # Evaluate on test set
-    test_accuracy, sample_predictions, sample_targets = evaluate_sequence_accuracy(trained_model, test_loader, tokenizer)
-    print(f"Test sequence accuracy: {test_accuracy:.4f}")
+    test_seq_accuracy, test_token_accuracy, sample_predictions, sample_targets = evaluate_sequence_accuracy(trained_model, test_loader, tokenizer)
+    print(f"Test sequence accuracy: {test_seq_accuracy:.4f}")
+    print(f"Test token accuracy: {test_token_accuracy:.4f}")
 
     # Display some example predictions
     print("\nSample predictions vs targets:")
@@ -85,7 +86,7 @@ def main():
 
     # Save the model and tokenizer
     torch.save(trained_model.state_dict(), os.path.join(args.model_dir, 'amplitude_model.pth'))
-    tokenizer.save_pretrained(os.path.join(args.model_dir, 'amplitude_tokenizer'))
+    #tokenizer.save_pretrained(os.path.join(args.model_dir, 'amplitude_tokenizer'))
 
     print("Model and tokenizer saved successfully!")
     

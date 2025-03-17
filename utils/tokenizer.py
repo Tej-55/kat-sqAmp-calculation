@@ -48,6 +48,9 @@ class Tokenizer:
         self.special_symbols = special_symbols
         self.UNK_IDX = UNK_IDX
         self.to_replace = to_replace
+        
+        self.src_itos = {}
+        self.tgt_itos = {}
 
     @staticmethod
     def remove_whitespace(expression):
@@ -133,6 +136,20 @@ class Tokenizer:
         temp_sqampl = re.sub(r' {2,}', ' ', temp_sqampl)
         return [token for token in self.split_expression(temp_sqampl) if token]
     
+    def src_decode(self, token_ids, skip_special_tokens=True):
+        """Convert source token IDs back to text"""
+        tokens = [self.src_itos.get(id, '') for id in token_ids]
+        if skip_special_tokens:
+            tokens = [t for t in tokens if t not in self.special_symbols]
+        return ' '.join(tokens)
+
+    def tgt_decode(self, token_ids, skip_special_tokens=True):
+        """Convert target token IDs back to text"""
+        tokens = [self.tgt_itos.get(id, '') for id in token_ids]
+        if skip_special_tokens:
+            tokens = [t for t in tokens if t not in self.special_symbols]
+        return ' '.join(tokens)
+    
 def create_tokenizer(df, index_pool_size=100, momentum_pool_size=100):
     """Create a tokenizer and build source and target vocabularies."""
     
@@ -142,6 +159,9 @@ def create_tokenizer(df, index_pool_size=100, momentum_pool_size=100):
     src_itos = {value: key for key, value in src_vocab.get_stoi().items()}
     tgt_vocab = tokenizer.build_tgt_vocab()
     tgt_itos = {value: key for key, value in tgt_vocab.get_stoi().items()}
+    
+    tokenizer.src_itos = src_itos
+    tokenizer.tgt_itos = tgt_itos
 
     return tokenizer, src_vocab, tgt_vocab, src_itos, tgt_itos
     

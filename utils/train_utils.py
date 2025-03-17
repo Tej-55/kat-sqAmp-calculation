@@ -3,6 +3,8 @@ from tqdm import tqdm
 import torch.nn as nn
 import matplotlib.pyplot as plt
 
+from utils.tokenizer import PAD_IDX, UNK_IDX
+
 
 
 def train_model(model, train_loader, val_loader, epochs=3, lr=5e-5):
@@ -89,7 +91,7 @@ def plot_training_history(history, save_path=None):
     plt.show()
     if save_path:
         plt.savefig(save_path)
-    
+
 def evaluate_sequence_accuracy(model, data_loader, tokenizer):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model.to(device)
@@ -97,6 +99,8 @@ def evaluate_sequence_accuracy(model, data_loader, tokenizer):
     
     all_predictions = []
     all_targets = []
+    total_tokens = 0
+    correct_tokens = 0
     
     with torch.no_grad():
         for batch_idx, batch in enumerate(tqdm(data_loader, desc="Evaluating")):
@@ -111,12 +115,28 @@ def evaluate_sequence_accuracy(model, data_loader, tokenizer):
                 max_length=512
             )
             
-            # Decode predictions and targets
-            predictions = [tokenizer.decode(pred, skip_special_tokens=True) for pred in outputs]
-            targets = [tokenizer.decode(label, skip_special_tokens=True) for label in labels]
+            # For source sequences
+            predictions = [tokenizer.src_decode(pred, skip_special_tokens=True) for pred in outputs]
+            # For target sequences
+            targets = [tokenizer.tgt_decode(label, skip_special_tokens=True) for label in labels]
             
             all_predictions.extend(predictions)
             all_targets.extend(targets)
+            
+            # Calculate token accuracy (ignoring PAD and UNK tokens)
+            for pred, label in zip(outputs, labels):
+                # Convert to lists and trim to shorter length
+                pred_list = pred.cpu().tolist()
+                label_list = label.cpu().tolist()
+                min_len = min(len(pred_list), len(label_list))
+                
+                # Compare tokens
+                for p, t in zip(pred_list[:min_len], label_list[:min_len]):
+                    # Skip PAD and UNK tokens
+                    if t != PAD_IDX and t != UNK_IDX:
+                        total_tokens += 1
+                        if p == t:
+                            correct_tokens += 1
             
             # Print progress
             if (batch_idx + 1) % 5 == 0:
@@ -126,8 +146,51 @@ def evaluate_sequence_accuracy(model, data_loader, tokenizer):
     exact_matches = sum(1 for pred, target in zip(all_predictions, all_targets) if pred == target)
     sequence_accuracy = exact_matches / len(all_targets)
     
-    # Return accuracy and some examples for inspection
-    return sequence_accuracy, all_predictions[:5], all_targets[:5]
+    # Calculate token accuracy
+    token_accuracy = correct_tokens / total_tokens if total_tokens > 0 else 0
+    
+    # Return accuracy metrics and some examples for inspection
+    return sequence_accuracy, token_accuracy, all_predictions[:5], all_targets[:5]
+
+    
+# def evaluate_sequence_accuracy(model, data_loader, tokenizer):
+#     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+#     model.to(device)
+#     model.eval()
+    
+#     all_predictions = []
+#     all_targets = []
+    
+#     with torch.no_grad():
+#         for batch_idx, batch in enumerate(tqdm(data_loader, desc="Evaluating")):
+#             input_ids = batch['input_ids'].to(device)
+#             attention_mask = batch['attention_mask'].to(device)
+#             labels = batch['labels'].to(device)
+            
+#             # Generate predictions
+#             outputs = model.generate(
+#                 input_ids=input_ids,
+#                 attention_mask=attention_mask,
+#                 max_length=512
+#             )
+            
+#             # Decode predictions and targets
+#             predictions = [tokenizer.decode(pred, skip_special_tokens=True) for pred in outputs]
+#             targets = [tokenizer.decode(label, skip_special_tokens=True) for label in labels]
+            
+#             all_predictions.extend(predictions)
+#             all_targets.extend(targets)
+            
+#             # Print progress
+#             if (batch_idx + 1) % 5 == 0:
+#                 print(f"Evaluated {batch_idx+1}/{len(data_loader)} batches")
+    
+#     # Calculate sequence accuracy
+#     exact_matches = sum(1 for pred, target in zip(all_predictions, all_targets) if pred == target)
+#     sequence_accuracy = exact_matches / len(all_targets)
+    
+#     # Return accuracy and some examples for inspection
+#     return sequence_accuracy, all_predictions[:5], all_targets[:5]
 
 def generate_square_subsequent_mask(sz):
     mask = (torch.triu(torch.ones(sz, sz)) == 1).transpose(0, 1)
