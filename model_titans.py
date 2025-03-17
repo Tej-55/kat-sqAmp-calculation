@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from utils import generate_square_subsequent_mask
+from utils.train_utils import generate_square_subsequent_mask
 
 class TitansEncoder(nn.Module):
     def __init__(
