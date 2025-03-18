@@ -108,14 +108,19 @@ def plot_training_history(history, save_path=None):
     plt.ylabel('Loss')
     plt.legend()
     plt.grid(True)
-    plt.show()
     if save_path:
         plt.savefig(save_path)
+    plt.show()
+
 
 def evaluate_sequence_accuracy(model, data_loader, tokenizer):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model.to(device)
     model.eval()
+    
+    # Check if model is wrapped with DDP and access the base model if needed
+    if isinstance(model, torch.nn.parallel.DistributedDataParallel):
+        model = model.module
     
     all_predictions = []
     all_targets = []
@@ -129,10 +134,10 @@ def evaluate_sequence_accuracy(model, data_loader, tokenizer):
             labels = batch['labels'].to(device)
             
             # Generate predictions
-            outputs = model(
+            outputs = model.generate(
                 input_ids=input_ids,
                 attention_mask=attention_mask,
-                labels=labels
+                max_length=512
             )
             
             # For source sequences
