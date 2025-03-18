@@ -138,14 +138,14 @@ class Tokenizer:
     
     def src_decode(self, token_ids, skip_special_tokens=True):
         """Convert source token IDs back to text"""
-        tokens = [self.src_itos.get(id, '') for id in token_ids]
+        tokens = [self.src_itos.get(id.item(), '') for id in token_ids]
         if skip_special_tokens:
             tokens = [t for t in tokens if t not in self.special_symbols]
         return ' '.join(tokens)
 
     def tgt_decode(self, token_ids, skip_special_tokens=True):
         """Convert target token IDs back to text"""
-        tokens = [self.tgt_itos.get(id, '') for id in token_ids]
+        tokens = [self.tgt_itos.get(id.item(), '') for id in token_ids]
         if skip_special_tokens:
             tokens = [t for t in tokens if t not in self.special_symbols]
         return ' '.join(tokens)

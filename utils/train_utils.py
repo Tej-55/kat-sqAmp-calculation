@@ -150,7 +150,7 @@ def evaluate_sequence_accuracy(model, data_loader, tokenizer):
     token_accuracy = correct_tokens / total_tokens if total_tokens > 0 else 0
     
     # Return accuracy metrics and some examples for inspection
-    return sequence_accuracy, token_accuracy, all_predictions[:5], all_targets[:5]
+    return sequence_accuracy, token_accuracy, all_predictions[:10], all_targets[:10]
 
     
 # def evaluate_sequence_accuracy(model, data_loader, tokenizer):
