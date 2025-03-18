@@ -26,7 +26,7 @@ def input_args():
     parser.add_argument('--seed', type=int, default=42, help='Random seed for reproducibility')
     
     # New distributed training arguments
-    parser.add_argument('--local_rank', type=int, default=-1, help='Local rank for distributed training')
+    parser.add_argument('--local-rank', '--local_rank' type=int, default=-1, help='Local rank for distributed training')
     parser.add_argument('--world_size', type=int, default=1, help='Number of processes for distributed training')
     parser.add_argument('--dist_url', default='env://', help='URL used to set up distributed training')
     parser.add_argument('--dist_backend', default='nccl', help='Distributed backend')
