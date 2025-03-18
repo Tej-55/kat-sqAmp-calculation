@@ -53,7 +53,7 @@ def train_model(model, train_loader, val_loader, epochs=3, lr=5e-5, args=None):
             optimizer.step()
             
             # Print progress every 50 batches
-            if (batch_idx + 1) % 10 == 0 and args.local_rank in [-1, 0]:
+            if (batch_idx + 1) % 50 == 0 and args.local_rank in [-1, 0]:
                 print(f"Epoch {epoch+1}/{epochs} | Batch {batch_idx+1}/{len(train_loader)} | Loss: {loss.item():.4f}")
         
         # Average loss across all processes
