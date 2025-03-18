@@ -3,7 +3,7 @@ from tqdm import tqdm
 import torch.nn as nn
 import matplotlib.pyplot as plt
 import torch.distributed as dist
-from utils.tokenizer import PAD_IDX, UNK_IDX
+from utils.tokenizer import PAD_IDX, UNK_IDX, BOS_IDX, EOS_IDX
 
 
 
@@ -148,12 +148,16 @@ def evaluate_sequence_accuracy(model, data_loader, tokenizer):
                 # Convert to lists and trim to shorter length
                 pred_list = pred.cpu().tolist()
                 label_list = label.cpu().tolist()
+                
+                if pred_list and pred_list[0] in [PAD_IDX, BOS_IDX]:  # T5 uses PAD as starting token
+                        pred_list = pred_list[1:]
+                
                 min_len = min(len(pred_list), len(label_list))
                 
                 # Compare tokens
                 for p, t in zip(pred_list[:min_len], label_list[:min_len]):
                     # Skip PAD and UNK tokens
-                    if t != PAD_IDX and t != UNK_IDX:
+                    if t not in [PAD_IDX, UNK_IDX, EOS_IDX, BOS_IDX]:
                         total_tokens += 1
                         if p == t:
                             correct_tokens += 1
@@ -170,7 +174,7 @@ def evaluate_sequence_accuracy(model, data_loader, tokenizer):
     token_accuracy = correct_tokens / total_tokens if total_tokens > 0 else 0
     
     # Return accuracy metrics and some examples for inspection
-    return sequence_accuracy, token_accuracy, all_predictions[:10], all_targets[:10]
+    return sequence_accuracy, token_accuracy, all_predictions[:25], all_targets[:25]
 
 
 def generate_square_subsequent_mask(sz):
