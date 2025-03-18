@@ -135,7 +135,7 @@ def main():
     device = torch.device(f'cuda:{args.local_rank}' if args.distributed else 'cuda:0' if torch.cuda.is_available() else 'cpu')
     model.to(device)
     
-        # Wrap model with DDP if using distributed training
+    # Wrap model with DDP if using distributed training
     if args.distributed:
         model = DDP(model, device_ids=[args.local_rank], output_device=args.local_rank)
     
@@ -163,8 +163,8 @@ def main():
         print("\nSample predictions vs targets:")
         for i, (pred, target) in enumerate(zip(sample_predictions, sample_targets)):
             print(f"\nExample {i+1}:")
-            print(f"Prediction: {pred[:100]}..." if len(pred) > 100 else f"Prediction: {pred}")
-            print(f"Target: {target[:100]}..." if len(target) > 100 else f"Target: {target}")
+            print(f"Prediction: {pred[:250]}..." if len(pred) > 250 else f"Prediction: {pred}")
+            print(f"Target: {target[:250]}..." if len(target) > 250 else f"Target: {target}")
             print(f"Correct: {pred == target}")
 
         # Save the model and tokenizer
