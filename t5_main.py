@@ -11,6 +11,7 @@ from utils.tokenizer import create_tokenizer
 from utils.train_utils import evaluate_sequence_accuracy, plot_training_history, train_model
 import argparse
 
+
 def input_args():
     parser = argparse.ArgumentParser(description='Train a T5 model for amplitude data')
     parser.add_argument('--batch_size', type=int, default=8, help='Batch size for training')
