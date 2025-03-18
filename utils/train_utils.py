@@ -2,14 +2,18 @@ import torch
 from tqdm import tqdm
 import torch.nn as nn
 import matplotlib.pyplot as plt
-
+import torch.distributed as dist
 from utils.tokenizer import PAD_IDX, UNK_IDX
 
 
 
-def train_model(model, train_loader, val_loader, epochs=3, lr=5e-5):
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    print(f"Using device: {device}")
+def train_model(model, train_loader, val_loader, epochs=3, lr=5e-5, args=None):
+
+    device = torch.device(f'cuda:{args.local_rank}' if args.distributed else 'cuda:0' if torch.cuda.is_available() else 'cpu')
+    
+    if args.local_rank in [-1, 0]:
+        print(f"Using device: {device}")
+
     model.to(device)
     
     optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
@@ -21,11 +25,15 @@ def train_model(model, train_loader, val_loader, epochs=3, lr=5e-5):
     }
     
     for epoch in range(epochs):
+        # Set epoch for distributed sampler
+        if args.distributed:
+            train_loader.sampler.set_epoch(epoch)
+        
         # Training phase
         model.train()
         train_loss = 0
         
-        for batch_idx, batch in enumerate(tqdm(train_loader, desc=f"Epoch {epoch+1}/{epochs}")):
+        for batch_idx, batch in enumerate(tqdm(train_loader, desc=f"Epoch {epoch+1}/{epochs}", disable=args.local_rank not in [-1, 0])):            
             input_ids = batch['input_ids'].to(device)
             attention_mask = batch['attention_mask'].to(device)
             labels = batch['labels'].to(device)
@@ -45,8 +53,14 @@ def train_model(model, train_loader, val_loader, epochs=3, lr=5e-5):
             optimizer.step()
             
             # Print progress every 50 batches
-            if (batch_idx + 1) % 50 == 0:
+            if (batch_idx + 1) % 10 == 0 and args.local_rank in [-1, 0]:
                 print(f"Epoch {epoch+1}/{epochs} | Batch {batch_idx+1}/{len(train_loader)} | Loss: {loss.item():.4f}")
+        
+        # Average loss across all processes
+        if args.distributed:
+            train_loss_tensor = torch.tensor(train_loss).to(device)
+            dist.all_reduce(train_loss_tensor)
+            train_loss = train_loss_tensor.item() / args.world_size
         
         avg_train_loss = train_loss / len(train_loader)
         history['train_loss'].append(avg_train_loss)
@@ -56,7 +70,7 @@ def train_model(model, train_loader, val_loader, epochs=3, lr=5e-5):
         val_loss = 0
         
         with torch.no_grad():
-            for batch in tqdm(val_loader, desc="Validation"):
+            for batch in tqdm(val_loader, desc="Validation", disable=args.local_rank not in [-1, 0]):
                 input_ids = batch['input_ids'].to(device)
                 attention_mask = batch['attention_mask'].to(device)
                 labels = batch['labels'].to(device)
@@ -68,14 +82,20 @@ def train_model(model, train_loader, val_loader, epochs=3, lr=5e-5):
                 )
                 
                 val_loss += outputs.loss.item()
-        
+        # Average validation loss across all processes
+        if args.distributed:
+            val_loss_tensor = torch.tensor(val_loss).to(device)
+            dist.all_reduce(val_loss_tensor)
+            val_loss = val_loss_tensor.item() / args.world_size
+            
         avg_val_loss = val_loss / len(val_loader)
         history['val_loss'].append(avg_val_loss)
         
-        print(f"Epoch {epoch+1}/{epochs}")
-        print(f"Train loss: {avg_train_loss:.4f}")
-        print(f"Validation loss: {avg_val_loss:.4f}")
-        print("-" * 50)
+        if args.local_rank in [-1, 0]:
+            print(f"Epoch {epoch+1}/{epochs}")
+            print(f"Train loss: {avg_train_loss:.4f}")
+            print(f"Validation loss: {avg_val_loss:.4f}")
+            print("-" * 50)
     
     return model, history
 
@@ -116,7 +136,7 @@ def evaluate_sequence_accuracy(model, data_loader, tokenizer):
             )
             
             # For source sequences
-            predictions = [tokenizer.src_decode(pred, skip_special_tokens=True) for pred in outputs]
+            predictions = [tokenizer.tgt_decode(pred, skip_special_tokens=True) for pred in outputs]
             # For target sequences
             targets = [tokenizer.tgt_decode(label, skip_special_tokens=True) for label in labels]
             
