@@ -129,7 +129,7 @@ def evaluate_sequence_accuracy(model, data_loader, tokenizer):
             labels = batch['labels'].to(device)
             
             # Generate predictions
-            outputs = model.generate(
+            outputs = model(
                 input_ids=input_ids,
                 attention_mask=attention_mask,
                 max_length=512
