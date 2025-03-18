@@ -132,7 +132,7 @@ def evaluate_sequence_accuracy(model, data_loader, tokenizer):
             outputs = model(
                 input_ids=input_ids,
                 attention_mask=attention_mask,
-                max_length=512
+                labels=labels
             )
             
             # For source sequences
