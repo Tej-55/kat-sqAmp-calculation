@@ -6,15 +6,12 @@ import random
 import argparse
 import torch
 from torch.utils.data import DataLoader
-from transformers import T5ForConditionalGeneration, T5Tokenizer
 import torch.distributed as dist
 from torch.nn.parallel import DistributedDataParallel as DDP
 from torch.utils.data.distributed import DistributedSampler
-from utils.data_utils import AmplitudeDataset, get_data, load_data
-from titans.memory_models import MemoryMLP, ResidualNorm
-from titans.neural_memory import NeuralMemory
+from utils.data_utils import get_data, load_data
+from titans.memory_models import MemoryMLP
 from titans.mac_transformer import MemoryAsContextTransformer
-from utils.data_utils import AmplitudeDataset
 from utils.tokenizer import create_tokenizer
 from utils.train_utils import evaluate_titans_sequence_accuracy, plot_training_history, train_titans_model
 

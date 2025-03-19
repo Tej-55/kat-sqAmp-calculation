@@ -1,0 +1,274 @@
+/usr/local/lib/python3.10/dist-packages/torch/distributed/launch.py:183: FutureWarning: The module torch.distributed.launch is deprecated
+and will be removed in future. Use torchrun.
+Note that --use-env is set by default in torchrun.
+If your script expects `--local-rank` argument to be set, please
+change it to read from `os.environ['LOCAL_RANK']` instead. See 
+https://pytorch.org/docs/stable/distributed.html#launch-utility for 
+further instructions
+
+  warnings.warn(
+[2025-03-19 20:04:38,379] torch.distributed.run: [WARNING] 
+[2025-03-19 20:04:38,379] torch.distributed.run: [WARNING] *****************************************
+[2025-03-19 20:04:38,379] torch.distributed.run: [WARNING] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+[2025-03-19 20:04:38,379] torch.distributed.run: [WARNING] *****************************************
+2025-03-19 20:04:43.992710: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:485] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2025-03-19 20:04:43.992710: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:485] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2025-03-19 20:04:44.019696: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:8454] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2025-03-19 20:04:44.019696: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:8454] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2025-03-19 20:04:44.027827: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1452] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2025-03-19 20:04:44.027835: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1452] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+/usr/local/lib/python3.10/dist-packages/tensordict/_pytree.py:180: UserWarning: torch.utils._pytree._register_pytree_node is deprecated. Please use torch.utils._pytree.register_pytree_node instead.
+  register_pytree_node(
+/usr/local/lib/python3.10/dist-packages/tensordict/_pytree.py:180: UserWarning: torch.utils._pytree._register_pytree_node is deprecated. Please use torch.utils._pytree.register_pytree_node instead.
+  register_pytree_node(
+/usr/local/lib/python3.10/dist-packages/tensordict/_pytree.py:199: UserWarning: torch.utils._pytree._register_pytree_node is deprecated. Please use torch.utils._pytree.register_pytree_node instead.
+  register_pytree_node(
+/usr/local/lib/python3.10/dist-packages/tensordict/_pytree.py:199: UserWarning: torch.utils._pytree._register_pytree_node is deprecated. Please use torch.utils._pytree.register_pytree_node instead.
+  register_pytree_node(
+| distributed init (rank 0): env://
+| distributed init (rank 1): env://
+Model parameters: 3720175
+Number of training batches: 778
+Number of validation batches: 98
+Number of test batches: 98
+Using device: cuda:0
+Epoch 1/5:   6%|█▉                             | 49/778 [00:34<08:22,  1.45it/s]Epoch 1/5 | Batch 50/778 | Loss: 2.0317
+Epoch 1/5:  13%|███▉                           | 99/778 [01:09<08:03,  1.41it/s]Epoch 1/5 | Batch 100/778 | Loss: 1.6110
+Epoch 1/5:  19%|█████▋                        | 149/778 [01:44<07:30,  1.40it/s]Epoch 1/5 | Batch 150/778 | Loss: 0.9742
+Epoch 1/5:  26%|███████▋                      | 199/778 [02:20<06:58,  1.38it/s]Epoch 1/5 | Batch 200/778 | Loss: 1.1156
+Epoch 1/5:  32%|█████████▌                    | 249/778 [02:56<06:14,  1.41it/s]Epoch 1/5 | Batch 250/778 | Loss: 0.8187
+Epoch 1/5:  38%|███████████▌                  | 299/778 [03:32<05:42,  1.40it/s]Epoch 1/5 | Batch 300/778 | Loss: 0.5532
+Epoch 1/5:  45%|█████████████▍                | 349/778 [04:08<05:08,  1.39it/s]Epoch 1/5 | Batch 350/778 | Loss: 0.3398
+Epoch 1/5:  51%|███████████████▍              | 399/778 [04:45<04:37,  1.37it/s]Epoch 1/5 | Batch 400/778 | Loss: 0.4714
+Epoch 1/5:  58%|█████████████████▎            | 449/778 [05:21<04:02,  1.35it/s]Epoch 1/5 | Batch 450/778 | Loss: 0.5144
+Epoch 1/5:  64%|███████████████████▏          | 499/778 [05:58<03:22,  1.38it/s]Epoch 1/5 | Batch 500/778 | Loss: 0.4456
+Epoch 1/5:  71%|█████████████████████▏        | 549/778 [06:34<02:48,  1.36it/s]Epoch 1/5 | Batch 550/778 | Loss: 0.2740
+Epoch 1/5:  77%|███████████████████████       | 599/778 [07:11<02:10,  1.37it/s]Epoch 1/5 | Batch 600/778 | Loss: 0.3523
+Epoch 1/5:  83%|█████████████████████████     | 649/778 [07:47<01:33,  1.38it/s]Epoch 1/5 | Batch 650/778 | Loss: 0.2461
+Epoch 1/5:  90%|██████████████████████████▉   | 699/778 [08:23<00:58,  1.36it/s]Epoch 1/5 | Batch 700/778 | Loss: 0.2488
+Epoch 1/5:  96%|████████████████████████████▉ | 749/778 [09:00<00:21,  1.37it/s]Epoch 1/5 | Batch 750/778 | Loss: 0.2185
+Epoch 1/5: 100%|██████████████████████████████| 778/778 [09:21<00:00,  1.39it/s]
+Validation: 100%|███████████████████████████████| 98/98 [00:26<00:00,  3.72it/s]
+Epoch 1/5
+Train loss: 0.7142
+Validation loss: 0.2314
+--------------------------------------------------
+Epoch 2/5:   6%|█▉                             | 49/778 [00:35<08:54,  1.36it/s]Epoch 2/5 | Batch 50/778 | Loss: 0.1543
+Epoch 2/5:  13%|███▉                           | 99/778 [01:12<08:11,  1.38it/s]Epoch 2/5 | Batch 100/778 | Loss: 0.1833
+Epoch 2/5:  19%|█████▋                        | 149/778 [01:48<07:34,  1.39it/s]Epoch 2/5 | Batch 150/778 | Loss: 0.1828
+Epoch 2/5:  26%|███████▋                      | 199/778 [02:24<06:57,  1.39it/s]Epoch 2/5 | Batch 200/778 | Loss: 0.1429
+Epoch 2/5:  32%|█████████▌                    | 249/778 [03:00<06:24,  1.37it/s]Epoch 2/5 | Batch 250/778 | Loss: 0.1912
+Epoch 2/5:  38%|███████████▌                  | 299/778 [03:37<05:45,  1.39it/s]Epoch 2/5 | Batch 300/778 | Loss: 0.1885
+Epoch 2/5:  45%|█████████████▍                | 349/778 [04:13<05:09,  1.39it/s]Epoch 2/5 | Batch 350/778 | Loss: 0.2391
+Epoch 2/5:  51%|███████████████▍              | 399/778 [04:50<04:46,  1.32it/s]Epoch 2/5 | Batch 400/778 | Loss: 0.1487
+Epoch 2/5:  58%|█████████████████▎            | 449/778 [05:26<04:01,  1.36it/s]Epoch 2/5 | Batch 450/778 | Loss: 0.1941
+Epoch 2/5:  64%|███████████████████▏          | 499/778 [06:02<03:21,  1.38it/s]Epoch 2/5 | Batch 500/778 | Loss: 0.1258
+Epoch 2/5:  71%|█████████████████████▏        | 549/778 [06:39<02:45,  1.38it/s]Epoch 2/5 | Batch 550/778 | Loss: 0.1455
+Epoch 2/5:  77%|███████████████████████       | 599/778 [07:15<02:09,  1.38it/s]Epoch 2/5 | Batch 600/778 | Loss: 0.1656
+Epoch 2/5:  83%|█████████████████████████     | 649/778 [07:51<01:33,  1.38it/s]Epoch 2/5 | Batch 650/778 | Loss: 0.1041
+Epoch 2/5:  90%|██████████████████████████▉   | 699/778 [08:28<00:57,  1.37it/s]Epoch 2/5 | Batch 700/778 | Loss: 0.1511
+Epoch 2/5:  96%|████████████████████████████▉ | 749/778 [09:04<00:21,  1.37it/s]Epoch 2/5 | Batch 750/778 | Loss: 0.1083
+Epoch 2/5: 100%|██████████████████████████████| 778/778 [09:25<00:00,  1.38it/s]
+Validation: 100%|███████████████████████████████| 98/98 [00:26<00:00,  3.75it/s]
+Epoch 2/5
+Train loss: 0.1721
+Validation loss: 0.1285
+--------------------------------------------------
+Epoch 3/5:   6%|█▉                             | 49/778 [00:35<08:52,  1.37it/s]Epoch 3/5 | Batch 50/778 | Loss: 0.1436
+Epoch 3/5:  13%|███▉                           | 99/778 [01:11<08:13,  1.37it/s]Epoch 3/5 | Batch 100/778 | Loss: 0.1247
+Epoch 3/5:  19%|█████▋                        | 149/778 [01:48<07:40,  1.36it/s]Epoch 3/5 | Batch 150/778 | Loss: 0.1282
+Epoch 3/5:  26%|███████▋                      | 199/778 [02:24<06:57,  1.39it/s]Epoch 3/5 | Batch 200/778 | Loss: 0.1169
+Epoch 3/5:  32%|█████████▌                    | 249/778 [03:00<06:26,  1.37it/s]Epoch 3/5 | Batch 250/778 | Loss: 0.1259
+Epoch 3/5:  38%|███████████▌                  | 299/778 [03:37<05:45,  1.39it/s]Epoch 3/5 | Batch 300/778 | Loss: 0.1296
+Epoch 3/5:  45%|█████████████▍                | 349/778 [04:13<05:12,  1.37it/s]Epoch 3/5 | Batch 350/778 | Loss: 0.1268
+Epoch 3/5:  51%|███████████████▍              | 399/778 [04:49<04:32,  1.39it/s]Epoch 3/5 | Batch 400/778 | Loss: 0.1336
+Epoch 3/5:  58%|█████████████████▎            | 449/778 [05:25<03:56,  1.39it/s]Epoch 3/5 | Batch 450/778 | Loss: 0.0938
+Epoch 3/5:  64%|███████████████████▏          | 499/778 [06:02<03:21,  1.39it/s]Epoch 3/5 | Batch 500/778 | Loss: 0.0806
+Epoch 3/5:  71%|█████████████████████▏        | 549/778 [06:38<02:45,  1.38it/s]Epoch 3/5 | Batch 550/778 | Loss: 0.1406
+Epoch 3/5:  77%|███████████████████████       | 599/778 [07:14<02:08,  1.39it/s]Epoch 3/5 | Batch 600/778 | Loss: 0.1588
+Epoch 3/5:  83%|█████████████████████████     | 649/778 [07:50<01:32,  1.39it/s]Epoch 3/5 | Batch 650/778 | Loss: 0.0759
+Epoch 3/5:  90%|██████████████████████████▉   | 699/778 [08:27<00:57,  1.37it/s]Epoch 3/5 | Batch 700/778 | Loss: 0.1359
+Epoch 3/5:  96%|████████████████████████████▉ | 749/778 [09:03<00:20,  1.38it/s]Epoch 3/5 | Batch 750/778 | Loss: 0.0806
+Epoch 3/5: 100%|██████████████████████████████| 778/778 [09:23<00:00,  1.38it/s]
+Validation: 100%|███████████████████████████████| 98/98 [00:25<00:00,  3.78it/s]
+Epoch 3/5
+Train loss: 0.1079
+Validation loss: 0.0961
+--------------------------------------------------
+Epoch 4/5:   6%|█▉                             | 49/778 [00:35<08:48,  1.38it/s]Epoch 4/5 | Batch 50/778 | Loss: 0.0725
+Epoch 4/5:  13%|███▉                           | 99/778 [01:12<08:13,  1.37it/s]Epoch 4/5 | Batch 100/778 | Loss: 0.0826
+Epoch 4/5:  19%|█████▋                        | 149/778 [01:48<07:41,  1.36it/s]Epoch 4/5 | Batch 150/778 | Loss: 0.1117
+Epoch 4/5:  26%|███████▋                      | 199/778 [02:25<07:07,  1.35it/s]Epoch 4/5 | Batch 200/778 | Loss: 0.1353
+Epoch 4/5:  32%|█████████▌                    | 249/778 [03:01<06:19,  1.39it/s]Epoch 4/5 | Batch 250/778 | Loss: 0.0903
+Epoch 4/5:  38%|███████████▌                  | 299/778 [03:37<05:45,  1.39it/s]Epoch 4/5 | Batch 300/778 | Loss: 0.1092
+Epoch 4/5:  45%|█████████████▍                | 349/778 [04:13<05:08,  1.39it/s]Epoch 4/5 | Batch 350/778 | Loss: 0.0811
+Epoch 4/5:  51%|███████████████▍              | 399/778 [04:49<04:33,  1.39it/s]Epoch 4/5 | Batch 400/778 | Loss: 0.0869
+Epoch 4/5:  58%|█████████████████▎            | 449/778 [05:26<03:55,  1.40it/s]Epoch 4/5 | Batch 450/778 | Loss: 0.0693
+Epoch 4/5:  64%|███████████████████▏          | 499/778 [06:02<03:23,  1.37it/s]Epoch 4/5 | Batch 500/778 | Loss: 0.0604
+Epoch 4/5:  71%|█████████████████████▏        | 549/778 [06:38<02:50,  1.34it/s]Epoch 4/5 | Batch 550/778 | Loss: 0.0909
+Epoch 4/5:  77%|███████████████████████       | 599/778 [07:14<02:09,  1.38it/s]Epoch 4/5 | Batch 600/778 | Loss: 0.0929
+Epoch 4/5:  83%|█████████████████████████     | 649/778 [07:50<01:34,  1.36it/s]Epoch 4/5 | Batch 650/778 | Loss: 0.0911
+Epoch 4/5:  90%|██████████████████████████▉   | 699/778 [08:27<00:56,  1.39it/s]Epoch 4/5 | Batch 700/778 | Loss: 0.0704
+Epoch 4/5:  96%|████████████████████████████▉ | 749/778 [09:03<00:21,  1.38it/s]Epoch 4/5 | Batch 750/778 | Loss: 0.1064
+Epoch 4/5: 100%|██████████████████████████████| 778/778 [09:24<00:00,  1.38it/s]
+Validation: 100%|███████████████████████████████| 98/98 [00:25<00:00,  3.83it/s]
+Epoch 4/5
+Train loss: 0.0902
+Validation loss: 0.0860
+--------------------------------------------------
+Epoch 5/5:   6%|█▉                             | 49/778 [00:35<08:56,  1.36it/s]Epoch 5/5 | Batch 50/778 | Loss: 0.0846
+Epoch 5/5:  13%|███▉                           | 99/778 [01:11<08:13,  1.38it/s]Epoch 5/5 | Batch 100/778 | Loss: 0.1007
+Epoch 5/5:  19%|█████▋                        | 149/778 [01:48<07:33,  1.39it/s]Epoch 5/5 | Batch 150/778 | Loss: 0.0952
+Epoch 5/5:  26%|███████▋                      | 199/778 [02:24<06:58,  1.38it/s]Epoch 5/5 | Batch 200/778 | Loss: 0.0635
+Epoch 5/5:  32%|█████████▌                    | 249/778 [03:00<06:24,  1.38it/s]Epoch 5/5 | Batch 250/778 | Loss: 0.0865
+Epoch 5/5:  38%|███████████▌                  | 299/778 [03:37<05:48,  1.38it/s]Epoch 5/5 | Batch 300/778 | Loss: 0.0716
+Epoch 5/5:  45%|█████████████▍                | 349/778 [04:13<05:15,  1.36it/s]Epoch 5/5 | Batch 350/778 | Loss: 0.0766
+Epoch 5/5:  51%|███████████████▍              | 399/778 [04:50<04:36,  1.37it/s]Epoch 5/5 | Batch 400/778 | Loss: 0.0910
+Epoch 5/5:  58%|█████████████████▎            | 449/778 [05:26<03:59,  1.37it/s]Epoch 5/5 | Batch 450/778 | Loss: 0.0759
+Epoch 5/5:  64%|███████████████████▏          | 499/778 [06:02<03:22,  1.38it/s]Epoch 5/5 | Batch 500/778 | Loss: 0.0863
+Epoch 5/5:  71%|█████████████████████▏        | 549/778 [06:38<02:44,  1.40it/s]Epoch 5/5 | Batch 550/778 | Loss: 0.1077
+Epoch 5/5:  77%|███████████████████████       | 599/778 [07:14<02:07,  1.41it/s]Epoch 5/5 | Batch 600/778 | Loss: 0.0720
+Epoch 5/5:  83%|█████████████████████████     | 649/778 [07:50<01:31,  1.41it/s]Epoch 5/5 | Batch 650/778 | Loss: 0.0795
+Epoch 5/5:  90%|██████████████████████████▉   | 699/778 [08:25<00:56,  1.40it/s]Epoch 5/5 | Batch 700/778 | Loss: 0.0769
+Epoch 5/5:  96%|████████████████████████████▉ | 749/778 [09:01<00:20,  1.40it/s]Epoch 5/5 | Batch 750/778 | Loss: 0.0738
+Epoch 5/5: 100%|██████████████████████████████| 778/778 [09:22<00:00,  1.38it/s]
+Validation: 100%|███████████████████████████████| 98/98 [00:25<00:00,  3.89it/s]
+Epoch 5/5
+Train loss: 0.0804
+Validation loss: 0.0741
+--------------------------------------------------
+Figure(1000x600)
+Model saved successfully!
+Evaluating:  19%|██████                         | 19/98 [04:45<19:01, 14.45s/it]Evaluated 20/98 batches
+Evaluating:  60%|██████████████████▋            | 59/98 [15:18<11:15, 17.31s/it]Evaluated 60/98 batches
+Evaluating:  81%|████████████████████████▉      | 79/98 [20:51<05:12, 16.43s/it]Evaluated 80/98 batches
+Evaluating: 100%|███████████████████████████████| 98/98 [25:56<00:00, 15.88s/it]
+Test sequence accuracy: 0.4023
+Test token accuracy: 0.6028
+
+Sample predictions vs targets:
+
+Example 1:
+Prediction: - 1/8 * e ^ 4 * ( 64 * m_t ^ 2 + ( - 16 ) * s_12 ) * s_22 * ( m_t ^ 2 + - s_22 + 2 * s_23 + - reg_prop ) ^ ( - 2 ) + ( - 8 ) * i * e ^ 2 * m_t * ( i * e ^ 2 * m_t * ( m_t ^ 2 + - 1/4 * s_12 ) / ( m_t ^ 2 + - s_22 + 2 * s_23 + - reg_prop ) + - i * e ^...
+Target: 4 * e ^ 4 * s_13 * s_23 * ( m_t ^ 2 + - s_22 + 2 * s_23 + - reg_prop ) ^ ( - 2 ) + 8 * i * e ^ 2 * m_t * ( i * e ^ 2 * m_t * ( m_t ^ 2 + - 1/4 * s_12 ) / ( m_t ^ 2 + - s_22 + 2 * s_23 + - reg_prop ) + - i * e ^ 2 * m_t * ( s_13 + - s_23 ) / ( m_t ^ 2...
+Correct: False
+
+Example 2:
+Prediction: 16/81 * e ^ 4 * ( 16 * m_u ^ 2 * s_22 + ( - 4 ) * s_13 * s_22 + 8 * s_12 * s_23 ) * ( s_22 + ( - 2 ) * s_23 + reg_prop ) ^ ( - 2 ) + - 16/81 * i * e ^ 2 * ( i * e ^ 2 * m_u ^ 2 * ( m_u ^ 2 + - 1/2 * s_13 ) / ( s_22 + ( - 2 ) * s_23 + reg_prop ) + 1/2...
+Target: 16/81 * e ^ 4 * ( 16 * m_u ^ 2 * s_22 + ( - 4 ) * s_13 * s_22 + 8 * s_12 * s_23 ) * ( s_22 + ( - 2 ) * s_23 + reg_prop ) ^ ( - 2 ) + - 256/81 * i * e ^ 2 * ( i * e ^ 2 * m_u ^ 2 * ( m_u ^ 2 + - 1/2 * s_13 ) / ( s_22 + ( - 2 ) * s_23 + reg_prop ) + 1/...
+Correct: False
+
+Example 3:
+Prediction: 4/9 * e ^ 4 * ( 16 * m_c ^ 2 * m_mu ^ 2 + 8 * m_c ^ 2 * s_12 + 8 * s_14 * s_23 + 8 * s_13 * s_24 + 8 * m_mu ^ 2 * s_34 ) * ( s_11 + 2 * s_12 + s_22 + reg_prop ) ^ ( - 2 )
+Target: 4/9 * e ^ 4 * ( 16 * m_c ^ 2 * m_mu ^ 2 + 8 * m_c ^ 2 * s_12 + 8 * s_14 * s_23 + 8 * s_13 * s_24 + 8 * m_mu ^ 2 * s_34 ) * ( s_11 + 2 * s_12 + s_22 + reg_prop ) ^ ( - 2 )
+Correct: True
+
+Example 4:
+Prediction: 16/81 * e ^ 4 * s_23 * s_24 * ( s_23 + - 1/2 * reg_prop ) ^ ( - 2 ) + - 64/81 * i * e ^ 2 * ( i * e ^ 2 * m_u ^ 2 * ( 16 * s_23 + 8 * s_24 ) / ( s_23 + - 1/2 * reg_prop ) + ( - 16 ) * i * e ^ 2 * m_u ^ 2 * ( m_u ^ 2 + 1/2 * s_34 ) / ( s_23 + - 1/2 * ...
+Target: 32/81 * e ^ 4 * s_23 * s_24 * ( s_23 + - 1/2 * reg_prop ) ^ ( - 2 ) + - 4/81 * i * e ^ 2 * ( i * e ^ 2 * m_u ^ 2 * ( 16 * s_23 + 8 * s_24 ) / ( s_23 + - 1/2 * reg_prop ) + ( - 16 ) * i * e ^ 2 * m_u ^ 2 * ( m_u ^ 2 + 1/2 * s_34 ) / ( s_23 + - 1/2 * r...
+Correct: False
+
+Example 5:
+Prediction: 2 * e ^ 4 * ( 16 * m_t ^ 2 * s_22 + ( - 4 ) * s_13 * s_22 + 8 * s_12 * s_23 ) * ( s_22 + ( - 2 ) * s_23 + reg_prop ) ^ ( - 2 ) + ( - 16 ) * i * e ^ 2 * ( i * e ^ 2 * m_t ^ 2 * ( 16 * s_23 + 8 * s_24 ) / ( s_22 + ( - 2 ) * s_23 + reg_prop ) + ( - 16 )...
+Target: e ^ 4 * ( 16 * m_t ^ 2 * s_22 + ( - 4 ) * s_13 * s_22 + 8 * s_12 * s_23 ) * ( s_22 + ( - 2 ) * s_23 + reg_prop ) ^ ( - 2 ) + ( - 16 ) * i * e ^ 2 * ( i * e ^ 2 * m_t ^ 2 * ( m_t ^ 2 + - 1/2 * s_13 ) / ( s_22 + ( - 2 ) * s_23 + reg_prop ) + 1/2 * i * ...
+Correct: False
+
+Example 6:
+Prediction: 1/81 * e ^ 4 * s_23 * s_24 * ( s_23 + - 1/2 * reg_prop ) ^ ( - 2 ) + - 1/324 * i * e ^ 2 * ( i * e ^ 2 * m_s ^ 2 * ( 16 * s_23 + 8 * s_24 ) / ( s_23 + - 1/2 * reg_prop ) + ( - 16 ) * i * e ^ 2 * m_s ^ 2 * ( m_s ^ 2 + 1/2 * s_34 ) / ( s_23 + - 1/2 * r...
+Target: 2/81 * e ^ 4 * s_23 * s_24 * ( s_23 + - 1/2 * reg_prop ) ^ ( - 2 ) + - 1/324 * i * e ^ 2 * ( i * e ^ 2 * m_s ^ 2 * ( 16 * s_23 + 8 * s_24 ) / ( s_23 + - 1/2 * reg_prop ) + ( - 16 ) * i * e ^ 2 * m_s ^ 2 * ( m_s ^ 2 + 1/2 * s_34 ) / ( s_23 + - 1/2 * r...
+Correct: False
+
+Example 7:
+Prediction: 1/81 * e ^ 4 * ( s_13 * s_23 + ( - 2 ) * m_s ^ 2 * s_33 + - 1/2 * s_12 * s_33 ) * ( s_23 + - 1/2 * s_33 + - 1/2 * reg_prop ) ^ ( - 2 ) + 2/81 * i * e ^ 2 * ( i * e ^ 2 * m_s ^ 2 * ( m_s ^ 2 + 1/2 * s_12 ) / ( s_23 + - 1/2 * s_33 + - 1/2 * reg_prop ) ...
+Target: 1/81 * e ^ 4 * ( s_13 * s_23 + ( - 2 ) * m_s ^ 2 * s_33 + - 1/2 * s_12 * s_33 ) * ( s_13 + - 1/2 * s_33 + - 1/2 * reg_prop ) ^ ( - 2 ) + 2/81 * i * e ^ 2 * ( i * e ^ 2 * m_s ^ 2 * ( m_s ^ 2 + 1/2 * s_12 ) / ( s_13 + - 1/2 * s_33 + - 1/2 * reg_prop ) ...
+Correct: False
+
+Example 8:
+Prediction: 1/9 * e ^ 4 * ( 16 * m_s ^ 2 * m_t ^ 2 + 8 * m_s ^ 2 * s_12 + 8 * s_14 * s_23 + 8 * s_13 * s_24 + 8 * m_t ^ 2 * s_34 ) * ( m_t ^ 2 + s_12 + 1/2 * reg_prop ) ^ ( - 2 )
+Target: 1/36 * e ^ 4 * ( 16 * m_s ^ 2 * m_t ^ 2 + 8 * m_s ^ 2 * s_12 + 8 * s_14 * s_23 + 8 * s_13 * s_24 + 8 * m_t ^ 2 * s_34 ) * ( m_t ^ 2 + s_12 + 1/2 * reg_prop ) ^ ( - 2 )
+Correct: False
+
+Example 9:
+Prediction: - 1/8 * e ^ 4 * ( 64 * m_mu ^ 2 + ( - 16 ) * s_12 ) * s_22 * ( m_mu ^ 2 + - s_22 + 2 * s_23 + - s_33 + - reg_prop ) ^ ( - 2 ) + ( - 8 ) * i * e ^ 2 * m_mu * ( i * e ^ 2 * m_mu * ( m_mu ^ 2 + - 1/4 * s_12 ) / ( m_mu ^ 2 + - s_22 + 2 * s_23 + - s_33 + ...
+Target: 4 * e ^ 4 * ( s_13 * s_23 + ( - 2 ) * m_mu ^ 2 * s_33 + - 1/2 * s_12 * s_33 ) * ( m_mu ^ 2 + - s_22 + 2 * s_23 + - s_33 + - reg_prop ) ^ ( - 2 ) + 8 * i * e ^ 2 * m_mu * ( i * e ^ 2 * m_mu * ( m_mu ^ 2 + - 1/4 * s_12 ) / ( m_mu ^ 2 + - s_22 + 2 * s_2...
+Correct: False
+
+Example 10:
+Prediction: 1/9 * e ^ 4 * ( 16 * m_d ^ 2 * m_e ^ 2 + ( - 8 ) * m_d ^ 2 * s_13 + 8 * s_14 * s_23 + ( - 8 ) * m_e ^ 2 * s_24 + 8 * s_12 * s_34 ) * ( m_e ^ 2 + ( - 2 ) * s_13 + s_33 + reg_prop ) ^ ( - 2 )
+Target: 1/9 * e ^ 4 * ( 16 * m_d ^ 2 * m_e ^ 2 + ( - 8 ) * m_d ^ 2 * s_13 + 8 * s_14 * s_23 + ( - 8 ) * m_e ^ 2 * s_24 + 8 * s_12 * s_34 ) * ( m_e ^ 2 + ( - 2 ) * s_13 + s_33 + reg_prop ) ^ ( - 2 )
+Correct: True
+
+Example 11:
+Prediction: 16/81 * e ^ 4 * ( 16 * m_u ^ 2 * m_tt ^ 2 + 8 * m_u ^ 2 * s_12 + 8 * s_14 * s_23 + 8 * s_13 * s_24 + 8 * m_tt ^ 2 * s_34 ) * ( m_tt ^ 2 + s_11 + 2 * s_12 + reg_prop ) ^ ( - 2 )
+Target: 16/81 * e ^ 4 * ( 16 * m_u ^ 2 * m_tt ^ 2 + 8 * m_u ^ 2 * s_12 + 8 * s_14 * s_23 + 8 * s_13 * s_24 + 8 * m_tt ^ 2 * s_34 ) * ( m_tt ^ 2 + s_11 + 2 * s_12 + reg_prop ) ^ ( - 2 )
+Correct: True
+
+Example 12:
+Prediction: - 1/8 * e ^ 4 * ( 64 * m_t ^ 2 + ( - 16 ) * s_12 ) * s_22 * ( m_t ^ 2 + - s_22 + 2 * s_23 + - s_33 + - reg_prop ) ^ ( - 2 ) + ( - 8 ) * i * e ^ 2 * m_t * ( i * e ^ 2 * m_t * ( m_t ^ 2 + - 1/4 * s_12 ) / ( m_t ^ 2 + - s_22 + 2 * s_23 + - s_33 + - reg_...
+Target: 4 * e ^ 4 * ( s_13 * s_23 + ( - 2 ) * m_t ^ 2 * s_33 + - 1/2 * s_12 * s_33 ) * ( m_t ^ 2 + - s_22 + 2 * s_23 + - s_33 + - reg_prop ) ^ ( - 2 ) + 8 * i * e ^ 2 * m_t * ( i * e ^ 2 * m_t * ( m_t ^ 2 + - 1/4 * s_12 ) / ( m_t ^ 2 + - s_22 + 2 * s_23 + - ...
+Correct: False
+
+Example 13:
+Prediction: 1/9 * e ^ 4 * ( 16 * m_e ^ 2 * m_s ^ 2 + 8 * m_e ^ 2 * s_12 + 8 * s_14 * s_23 + 8 * s_13 * s_24 + 8 * m_s ^ 2 * s_34 ) * ( m_s ^ 2 + 2 * s_12 + s_22 + reg_prop ) ^ ( - 2 )
+Target: 1/9 * e ^ 4 * ( 16 * m_e ^ 2 * m_s ^ 2 + 8 * m_e ^ 2 * s_12 + 8 * s_14 * s_23 + 8 * s_13 * s_24 + 8 * m_s ^ 2 * s_34 ) * ( m_s ^ 2 + 2 * s_12 + s_22 + reg_prop ) ^ ( - 2 )
+Correct: True
+
+Example 14:
+Prediction: 16/81 * e ^ 4 * m_d ^ 2 * ( m_d ^ 2 + 1/4 * s_13 ) * ( m_d ^ 2 + - s_11 + ( - 2 ) * s_12 + - s_22 + - reg_prop ) ^ ( - 2 ) + 16/81 * e ^ 4 * ( 128 * m_d ^ 2 * s_12 + s_11 * ( 64 * m_d ^ 2 + 16 * s_13 ) + 64 * m_d ^ 2 * s_22 + ( - 16 ) * s_13 * s_22 +...
+Target: 16/81 * e ^ 4 * m_d ^ 2 * ( m_d ^ 2 + 1/4 * s_13 ) * ( m_d ^ 2 + - s_22 + 2 * s_23 + - s_33 + - reg_prop ) ^ ( - 2 ) + - 1/324 * i * e ^ 2 * ( i * e ^ 2 * ( 64 * m_d ^ 2 + 16 * s_13 ) * s_33 / ( m_d ^ 2 + - s_22 + 2 * s_23 + - s_33 + - reg_prop ) + (...
+Correct: False
+
+Example 15:
+Prediction: 4/9 * e ^ 4 * ( 16 * m_mu ^ 2 * m_tt ^ 2 + 8 * m_mu ^ 2 * s_12 + 8 * s_14 * s_23 + 8 * s_13 * s_24 + 8 * m_tt ^ 2 * s_34 ) * ( m_tt ^ 2 + 2 * s_12 + s_22 + reg_prop ) ^ ( - 2 )
+Target: 4/9 * e ^ 4 * ( 16 * m_mu ^ 2 * m_tt ^ 2 + 8 * m_mu ^ 2 * s_12 + 8 * s_14 * s_23 + 8 * s_13 * s_24 + 8 * m_tt ^ 2 * s_34 ) * ( m_tt ^ 2 + 2 * s_12 + s_22 + reg_prop ) ^ ( - 2 )
+Correct: True
+
+Example 16:
+Prediction: 1/9 * e ^ 4 * ( 16 * m_s ^ 2 * m_mu ^ 2 + 8 * m_s ^ 2 * s_12 + 8 * s_14 * s_23 + 8 * s_13 * s_24 + 8 * m_mu ^ 2 * s_34 ) * ( m_mu ^ 2 + s_12 + 1/2 * reg_prop ) ^ ( - 2 )
+Target: 1/36 * e ^ 4 * ( 16 * m_s ^ 2 * m_mu ^ 2 + 8 * m_s ^ 2 * s_12 + 8 * s_14 * s_23 + 8 * s_13 * s_24 + 8 * m_mu ^ 2 * s_34 ) * ( m_mu ^ 2 + s_12 + 1/2 * reg_prop ) ^ ( - 2 )
+Correct: False
+
+Example 17:
+Prediction: 2 * e ^ 4 * ( ( - 16 ) * m_mu ^ 2 * s_22 + 8 * s_23 * s_24 + ( - 4 ) * s_22 * s_34 ) * ( s_22 + ( - 2 ) * s_23 + reg_prop ) ^ ( - 2 ) + - 1/81 * i * e ^ 2 * ( i * e ^ 2 * m_mu ^ 2 * ( 16 * s_23 + 8 * s_24 ) / ( s_22 + ( - 2 ) * s_23 + reg_prop ) + ( ...
+Target: ( - 16 ) * e ^ 4 * m_mu ^ 2 * ( m_mu ^ 2 + 1/2 * s_34 ) * ( s_22 + ( - 2 ) * s_23 + reg_prop ) ^ ( - 2 ) + - i * e ^ 2 * ( i * e ^ 2 * m_mu ^ 2 * ( 16 * s_23 + 8 * s_24 ) / ( s_22 + ( - 2 ) * s_23 + reg_prop ) + i * e ^ 2 * ( ( - 16 ) * m_mu ^ 2 * s_...
+Correct: False
+
+Example 18:
+Prediction: - 1/4 * e ^ 4 * m_mu ^ 2 * ( m_mu ^ 2 + 1/4 * s_13 ) * ( m_mu ^ 2 + - s_22 + 2 * s_23 + - s_33 + - reg_prop ) ^ ( - 2 ) + ( - 8 ) * i * e ^ 2 * ( i * e ^ 2 * s_23 * s_24 / ( m_mu ^ 2 + 2 * s_23 + - s_33 + - reg_prop ) + ( - 2 ) * i * e ^ 2 * m_mu ^ 2...
+Target: 16 * e ^ 4 * m_mu ^ 2 * ( m_mu ^ 2 + 1/4 * s_13 ) * ( m_mu ^ 2 + - s_22 + 2 * s_23 + - s_33 + - reg_prop ) ^ ( - 2 ) + - 1/4 * i * e ^ 2 * ( i * e ^ 2 * ( 64 * m_mu ^ 2 + 16 * s_13 ) * s_33 / ( m_mu ^ 2 + - s_22 + 2 * s_23 + - s_33 + - reg_prop ) + (...
+Correct: False
+
+Example 19:
+Prediction: - 4/81 * e ^ 4 * ( 64 * m_s ^ 2 + ( - 16 ) * s_12 ) * s_22 * ( m_s ^ 2 + - s_22 + 2 * s_23 + - s_33 + - reg_prop ) ^ ( - 2 ) + - 8/81 * i * e ^ 2 * m_s * ( i * e ^ 2 * m_s * ( m_s ^ 2 + - 1/4 * s_12 ) / ( m_s ^ 2 + - s_22 + 2 * s_23 + - s_33 + - reg_...
+Target: 4/81 * e ^ 4 * s_13 * s_23 * ( m_s ^ 2 + - s_22 + 2 * s_23 + - reg_prop ) ^ ( - 2 ) + 8/81 * i * e ^ 2 * m_s * ( i * e ^ 2 * m_s * ( m_s ^ 2 + - 1/4 * s_12 ) / ( m_s ^ 2 + - s_22 + 2 * s_23 + - reg_prop ) + i * e ^ 2 * m_s * ( s_12 + - s_22 ) / ( m_s...
+Correct: False
+
+Example 20:
+Prediction: 1/9 * e ^ 4 * ( 16 * m_s ^ 2 * m_mu ^ 2 + 8 * m_mu ^ 2 * s_12 + 8 * s_14 * s_23 + 8 * s_13 * s_24 + 8 * m_s ^ 2 * s_34 ) * ( m_s ^ 2 + s_11 + 2 * s_12 + reg_prop ) ^ ( - 2 )
+Target: 1/9 * e ^ 4 * ( 16 * m_s ^ 2 * m_mu ^ 2 + 8 * m_mu ^ 2 * s_12 + 8 * s_14 * s_23 + 8 * s_13 * s_24 + 8 * m_s ^ 2 * s_34 ) * ( m_s ^ 2 + s_11 + 2 * s_12 + reg_prop ) ^ ( - 2 )
+Correct: True
+
+Example 21:
+Prediction: e ^ 4 * ( s_14 * s_24 + ( - 2 ) * m_mu ^ 2 * s_44 + - 1/2 * s_12 * s_44 ) * ( s_23 + - 1/2 * reg_prop ) ^ ( - 2 ) + 2 * i * e ^ 2 * ( i * e ^ 2 * m_mu ^ 2 * ( m_mu ^ 2 + 1/2 * s_12 ) / ( s_23 + - 1/2 * reg_prop ) + - 1/16 * i * e ^ 2 * m_mu ^ 2 * ( 1...
+Target: e ^ 4 * s_13 * s_23 * ( s_23 + - 1/2 * reg_prop ) ^ ( - 2 ) + 2 * i * e ^ 2 * ( i * e ^ 2 * m_mu ^ 2 * ( m_mu ^ 2 + 1/2 * s_12 ) / ( s_23 + - 1/2 * reg_prop ) + - 1/2 * i * e ^ 2 * m_mu ^ 2 * ( s_13 + 2 * s_23 ) / ( s_23 + - 1/2 * reg_prop ) ) / ( s_...
+Correct: False
+
+Example 22:
+Prediction: 4/9 * e ^ 4 * ( 16 * m_e ^ 2 * m_tt ^ 2 + 8 * m_tt ^ 2 * s_12 + 8 * s_14 * s_23 + 8 * s_13 * s_24 + 8 * m_e ^ 2 * s_34 ) * ( s_11 + 2 * s_12 + s_22 + reg_prop ) ^ ( - 2 )
+Target: 4/9 * e ^ 4 * ( 16 * m_e ^ 2 * m_tt ^ 2 + 8 * m_tt ^ 2 * s_12 + 8 * s_14 * s_23 + 8 * s_13 * s_24 + 8 * m_e ^ 2 * s_34 ) * ( s_11 + 2 * s_12 + s_22 + reg_prop ) ^ ( - 2 )
+Correct: True
+
+Example 23:
+Prediction: - 4/81 * e ^ 4 * s_33 * ( 64 * m_c ^ 2 + ( - 16 ) * s_34 ) * ( m_c ^ 2 + - s_11 + 2 * s_13 + - s_33 + - reg_prop ) ^ ( - 2 ) + 16/81 * i * e ^ 2 * m_c * ( i * e ^ 2 * m_c * ( s_13 + - s_14 ) / ( m_c ^ 2 + - s_11 + 2 * s_13 + - s_33 + - reg_prop ) + -...
+Target: - 4/81 * e ^ 4 * s_33 * ( 64 * m_c ^ 2 + ( - 16 ) * s_34 ) * ( m_c ^ 2 + - s_11 + 2 * s_13 + - s_33 + - reg_prop ) ^ ( - 2 ) + 256/81 * i * e ^ 2 * m_c * ( i * e ^ 2 * m_c * ( s_13 + - s_14 ) / ( m_c ^ 2 + - s_11 + 2 * s_13 + - s_33 + - reg_prop ) + ...
+Correct: False
+
+Example 24:
+Prediction: 1/81 * e ^ 4 * ( 16 * m_c ^ 2 * m_s ^ 2 + ( - 8 ) * m_c ^ 2 * s_13 + 8 * s_14 * s_23 + ( - 8 ) * m_s ^ 2 * s_24 + 8 * s_12 * s_34 ) * ( m_s ^ 2 + - s_13 + 1/2 * reg_prop ) ^ ( - 2 )
+Target: 1/81 * e ^ 4 * ( 16 * m_c ^ 2 * m_s ^ 2 + ( - 8 ) * m_c ^ 2 * s_13 + 8 * s_14 * s_23 + ( - 8 ) * m_s ^ 2 * s_24 + 8 * s_12 * s_34 ) * ( m_s ^ 2 + - s_13 + 1/2 * reg_prop ) ^ ( - 2 )
+Correct: True
+
+Example 25:
+Prediction: 1/81 * e ^ 4 * s_23 * s_24 * ( s_23 + - 1/2 * reg_prop ) ^ ( - 2 ) + - 1/324 * i * e ^ 2 * ( i * e ^ 2 * m_s ^ 2 * ( 16 * s_23 + 8 * s_24 ) / ( s_23 + - 1/2 * reg_prop ) + ( - 16 ) * i * e ^ 2 * m_s ^ 2 * ( m_s ^ 2 + 1/2 * s_34 ) / ( s_23 + - 1/2 * r...
+Target: 1/324 * e ^ 4 * ( ( - 16 ) * m_s ^ 2 * s_22 + 8 * s_23 * s_24 + ( - 4 ) * s_22 * s_34 ) * ( s_13 + - 1/2 * reg_prop ) ^ ( - 2 ) + - 2/81 * i * e ^ 2 * ( i * e ^ 2 * m_s ^ 2 * ( s_23 + 2 * s_24 ) / ( s_13 + - 1/2 * reg_prop ) + ( - 2 ) * i * e ^ 2 * m...
+Correct: False
