@@ -305,43 +305,44 @@ def evaluate_titans_sequence_accuracy(model, test_loader, tokenizer):
             labels = batch['labels'].to(device)
 
             # Generate predictions
-            predictions = model.sample(
+            outputs = model.sample(
                 input_ids,
                 seq_len=input_ids.shape[1] + 300,  # Add extra length for generation
                 temperature=0.3,
                 use_cache=True
             )
 
-            # Decode predictions and targets
-            for i in range(len(input_ids)):
-                pred_text = tokenizer.tgt_decode(predictions[i], skip_special_tokens=True)
-                target_text = tokenizer.tgt_decode(labels[i], skip_special_tokens=True)
-
-                all_predictions.append(pred_text)
-                all_targets.append(target_text)
-
-                # Calculate token accuracy
-                pred_list = predictions[i].cpu().tolist()
-                label_list = labels[i].cpu().tolist()
+            # For source sequences
+            predictions = [tokenizer.tgt_decode(pred, skip_special_tokens=True) for pred in outputs]
+            # For target sequences
+            targets = [tokenizer.tgt_decode(label, skip_special_tokens=True) for label in labels]
+            
+            all_predictions.extend(predictions)
+            all_targets.extend(targets)
+            
+            # Calculate token accuracy (ignoring PAD and UNK tokens)
+            for pred, label in zip(outputs, labels):
+                # Convert to lists and trim to shorter length
+                pred_list = pred.cpu().tolist()
+                label_list = label.cpu().tolist()
                 
-                # Remove start token if present
-                if pred_list and pred_list[0] in [PAD_IDX, BOS_IDX]:
-                    pred_list = pred_list[1:]
+                if pred_list and pred_list[0] in [PAD_IDX, BOS_IDX]:  
+                        pred_list = pred_list[1:]
                 
-                # Get minimum length for comparison
                 min_len = min(len(pred_list), len(label_list))
                 
                 # Compare tokens
                 for p, t in zip(pred_list[:min_len], label_list[:min_len]):
-                    # Skip special tokens
+                    # Skip PAD and UNK tokens
                     if t not in [PAD_IDX, UNK_IDX, EOS_IDX, BOS_IDX]:
                         total_tokens += 1
                         if p == t:
                             correct_tokens += 1
-
+            
             # Print progress
-            if (batch_idx + 1) % 20 == 0:
+            if (batch_idx + 1) % 5 == 0:
                 print(f"Evaluated {batch_idx+1}/{len(test_loader)} batches")
+                break
 
     # Calculate sequence accuracy
     exact_matches = sum(1 for pred, target in zip(all_predictions, all_targets) if pred == target)
