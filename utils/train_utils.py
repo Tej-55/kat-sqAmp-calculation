@@ -288,6 +288,9 @@ def evaluate_titans_sequence_accuracy(model, test_loader, tokenizer):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model.to(device)
     model.eval()
+    
+    if isinstance(model, torch.nn.parallel.DistributedDataParallel):
+        model = model.module
 
     all_predictions = []
     all_targets = []
