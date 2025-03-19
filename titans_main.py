@@ -171,7 +171,7 @@ def main():
     
     # Wrap model with DDP if using distributed training
     if args.distributed:
-        titans_model = DDP(titans_model, device_ids=[args.local_rank], output_device=args.local_rank)
+        titans_model = DDP(titans_model, device_ids=[args.local_rank], output_device=args.local_rank, find_unused_parameters=True)
     
     if args.local_rank in [-1, 0]:
         print(f"Model parameters: {sum(p.numel() for p in titans_model.parameters())}")
@@ -196,6 +196,10 @@ def main():
         os.makedirs(args.model_dir, exist_ok=True)
         plot_training_history(history, os.path.join(args.model_dir, 'training_history.png'))
         
+        # Save the model
+        torch.save(trained_titans_model.state_dict(), os.path.join(args.model_dir, 'titans_model.pt'))
+        print("Model saved successfully!")
+        
         # Evaluate on test set
         test_seq_accuracy, test_token_accuracy, sample_predictions, sample_targets = evaluate_titans_sequence_accuracy(
             trained_titans_model, 
@@ -213,11 +217,7 @@ def main():
             print(f"Target: {target[:250]}..." if len(target) > 250 else f"Target: {target}")
             print(f"Correct: {pred == target}")
         
-        # Save the model and tokenizer
-        torch.save(trained_titans_model.state_dict(), os.path.join(args.model_dir, 'titans_model.pt'))
-        # tokenizer.save_pretrained(os.path.join(args.model_dir, 'titans_tokenizer'))
 
-    print("Model saved successfully!")
     
 if __name__ == "__main__":
     main()

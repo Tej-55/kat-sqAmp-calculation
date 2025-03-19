@@ -309,7 +309,8 @@ def evaluate_titans_sequence_accuracy(model, test_loader, tokenizer):
                 input_ids,
                 seq_len=input_ids.shape[1] + 300,  # Add extra length for generation
                 temperature=0.3,
-                use_cache=True
+                use_cache=True,
+                show_progress=False
             )
 
             # For source sequences
@@ -340,9 +341,8 @@ def evaluate_titans_sequence_accuracy(model, test_loader, tokenizer):
                             correct_tokens += 1
             
             # Print progress
-            if (batch_idx + 1) % 5 == 0:
+            if (batch_idx + 1) % 20 == 0:
                 print(f"Evaluated {batch_idx+1}/{len(test_loader)} batches")
-                break
 
     # Calculate sequence accuracy
     exact_matches = sum(1 for pred, target in zip(all_predictions, all_targets) if pred == target)

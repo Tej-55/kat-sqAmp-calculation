@@ -154,6 +154,10 @@ def main():
         os.makedirs(args.model_dir, exist_ok=True)
         plot_training_history(history, os.path.join(model_dir, 'training_history.png'))
         
+        # Save the model and tokenizer
+        torch.save(trained_model.state_dict(), os.path.join(args.model_dir, 'amplitude_model.pth'))
+        print("Model saved successfully!")
+        
         # Evaluate on test set
         test_seq_accuracy, test_token_accuracy, sample_predictions, sample_targets = evaluate_sequence_accuracy(trained_model, test_loader, tokenizer)
         print(f"Test sequence accuracy: {test_seq_accuracy:.4f}")
@@ -166,10 +170,6 @@ def main():
             print(f"Prediction: {pred[:250]}..." if len(pred) > 250 else f"Prediction: {pred}")
             print(f"Target: {target[:250]}..." if len(target) > 250 else f"Target: {target}")
             print(f"Correct: {pred == target}")
-
-        # Save the model and tokenizer
-        torch.save(trained_model.state_dict(), os.path.join(args.model_dir, 'amplitude_model.pth'))
-        print("Model saved successfully!")
     
 if __name__ == "__main__":
     main()
