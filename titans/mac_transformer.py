@@ -67,7 +67,7 @@ from hyper_connections import get_init_and_expand_reduce_stream_functions
 
 # proposed neural memory
 
-from titans.neural_memory import NeuralMemory
+from titans.neural_memory import NeuralMemory, RMSNorm
 
 # constants
 
@@ -172,7 +172,7 @@ def FeedForward(dim, mult = 4):
     dim_inner = int(dim * mult * 2 / 3)
 
     return nn.Sequential(
-        nn.RMSNorm(dim),
+        RMSNorm(dim),
         nn.Linear(dim, dim_inner * 2),
         GEGLU(),
         nn.Linear(dim_inner, dim)
@@ -193,7 +193,7 @@ class SegmentedAttention(Module):
         use_flex_attn = False
     ):
         super().__init__()
-        self.norm = nn.RMSNorm(dim)
+        self.norm = RMSNorm(dim)
 
         dim_inner = dim_head * heads
 
@@ -568,7 +568,7 @@ class MemoryAsContextTransformer(Module):
                     num_layer_choices = (layer - 1) * 4 + 1 # for each layer, have memory input select from attn inp, attn out, ff inp, and ff out - plus one for the current point in the residual stream (memory input)
 
                     mem_qkv_layer_selector = nn.Sequential(
-                        nn.RMSNorm(dim),
+                        RMSNorm(dim),
                         nn.Linear(dim, 3 * num_layer_choices),
                         Rearrange('... (views layers) -> views ... layers', views = 3),
                         nn.Softmax(dim = -1)
@@ -598,7 +598,7 @@ class MemoryAsContextTransformer(Module):
                 ff,
             ]))
 
-        self.norm = nn.RMSNorm(dim)
+        self.norm = RMSNorm(dim)
 
         self.to_logits = LinearNoBias(dim, num_tokens)
 

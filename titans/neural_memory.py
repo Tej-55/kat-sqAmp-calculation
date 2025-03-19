@@ -51,6 +51,21 @@ NeuralMemState = namedtuple('NeuralMemState', [
     'updates',
 ])
 
+class RMSNorm(nn.Module):
+    def __init__(self, dim, eps=1e-6):
+        super().__init__()
+        self.eps = eps
+        self.weight = nn.Parameter(torch.ones(dim))
+        self.register_parameter("weight", self.weight)
+
+    def forward(self, x):
+        # Calculate RMS
+        rms = torch.sqrt(torch.mean(x ** 2, dim=-1, keepdim=True) + self.eps)
+        x_norm = x / rms
+        # Apply scale
+        return self.weight * x_norm
+
+
 def mem_state_detach(
     state: NeuralMemState
 ):
@@ -157,7 +172,7 @@ def softclamp_grad_norm(t, max_value):
 class MultiheadRMSNorm(Module):
     def __init__(self, dim, heads):
         super().__init__()
-        self.rmsnorm = nn.RMSNorm(dim, elementwise_affine = False)
+        self.rmsnorm = RMSNorm(dim, elementwise_affine = False)
         self.gamma = Parameter(torch.zeros(heads, 1, dim))
 
     def forward(self, x):
@@ -284,8 +299,8 @@ class NeuralMemory(Module):
 
         # norms
 
-        self.retrieve_norm = nn.RMSNorm(dim) if pre_rmsnorm else nn.Identity()
-        self.store_norm = nn.RMSNorm(dim) if pre_rmsnorm else nn.Identity()
+        self.retrieve_norm = RMSNorm(dim) if pre_rmsnorm else nn.Identity()
+        self.store_norm = RMSNorm(dim) if pre_rmsnorm else nn.Identity()
 
         self.multihead_rmsnorm = MultiheadRMSNorm(dim_head, heads) if post_rmsnorm else nn.Identity()
 

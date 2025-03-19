@@ -152,7 +152,7 @@ def main():
         expansion_factor=expansion_factor
     )
     titans_model = MemoryAsContextTransformer(
-        num_tokens=len(tokenizer),
+        num_tokens=len(src_vocab),
         dim=dim,
         depth=depth,
         segment_len=segment_len,
@@ -182,7 +182,7 @@ def main():
     # Set epochs to a small number for initial testing, increase for better results
     trained_titans_model, history = train_titans_model(
         titans_model, 
-        tokenizer,
+        # tokenizer,
         train_loader, 
         val_loader, 
         epochs=num_epochs, 
@@ -199,8 +199,8 @@ def main():
         # Evaluate on test set
         test_seq_accuracy, test_token_accuracy, sample_predictions, sample_targets = evaluate_titans_sequence_accuracy(
             trained_titans_model, 
-            tokenizer, 
-            test_loader
+            test_loader,
+            tokenizer
         )
         print(f"Test sequence accuracy: {test_seq_accuracy:.4f}")
         print(f"Test token accuracy: {test_token_accuracy:.4f}")

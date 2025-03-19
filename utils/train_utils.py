@@ -291,6 +291,9 @@ def evaluate_titans_sequence_accuracy(model, test_loader, tokenizer):
 
     all_predictions = []
     all_targets = []
+    
+    total_tokens = 0 
+    correct_tokens = 0
 
     with torch.no_grad():
         for batch_idx, batch in enumerate(tqdm(test_loader, desc="Evaluating")):
@@ -308,8 +311,8 @@ def evaluate_titans_sequence_accuracy(model, test_loader, tokenizer):
 
             # Decode predictions and targets
             for i in range(len(input_ids)):
-                pred_text = tokenizer.decode(predictions[i], skip_special_tokens=True)
-                target_text = tokenizer.decode(labels[i], skip_special_tokens=True)
+                pred_text = tokenizer.tgt_decode(predictions[i], skip_special_tokens=True)
+                target_text = tokenizer.tgt_decode(labels[i], skip_special_tokens=True)
 
                 all_predictions.append(pred_text)
                 all_targets.append(target_text)
