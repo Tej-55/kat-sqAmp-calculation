@@ -132,10 +132,6 @@ python titans_main.py \
   --depth_mem=2
 ```
 
-## Conclusion
-
-The MAC TITANS architecture demonstrates superior performance for squared amplitude calculation compared to standard transformer models. The neural memory components allow it to better capture the patterns present in physics expressions.
-
 ## Acknowledgements
 
 This code is adapted from the following sources:
