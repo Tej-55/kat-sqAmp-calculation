@@ -1,3 +1,6 @@
+# This code is adapted from Skanformer by Riteshbhalerao11
+# Original source: https://github.com/Riteshbhalerao11/Skanformer/blob/master/Modeling/SineKAN/tokenizer.py
+
 import re
 from itertools import cycle
 from collections import Counter, OrderedDict
@@ -29,10 +32,7 @@ class Tokenizer:
         # Regular expression patterns for token replacement
         self.pattern_momentum = re.compile(r'\b[ijkl]_\d{1,}\b')
         self.pattern_num_123 = re.compile(r'\b(?![ps]_)\w+_\d{1,}\b')
-        self.pattern_special = re.compile(r'\b\w+_+\w+\b\\')
         self.pattern_underscore_curly = re.compile(r'\b\w+_{')
-        self.pattern_prop = re.compile(r'Prop')
-        self.pattern_int = re.compile(r'int\{')
         self.pattern_operators = {
             '+': re.compile(r'\+'), '-': re.compile(r'-'), '*': re.compile(r'\*'),
             ',': re.compile(r','), '^': re.compile(r'\^'), '%': re.compile(r'%'),
@@ -41,8 +41,6 @@ class Tokenizer:
         self.pattern_mass = re.compile(r'\b\w+_\w\b')
         self.pattern_s = re.compile(r'\b\w+_\d{2,}\b')
         self.pattern_reg_prop = re.compile(r'\b\w+_\d{1}\b')
-        self.pattern_antipart = re.compile(r'(\w)_\w+_\d+\(X\)\^\(\*\)')
-        self.pattern_part = re.compile(r'(\w)_\w+_\d+\(X\)')
         self.pattern_index = re.compile(r'\b\w+_\w+_\d{2,}\b')
         
         self.special_symbols = special_symbols
@@ -164,46 +162,3 @@ def create_tokenizer(df, index_pool_size=100, momentum_pool_size=100):
     tokenizer.tgt_itos = tgt_itos
 
     return tokenizer, src_vocab, tgt_vocab, src_itos, tgt_itos
-    
-def normalize_indices(tokenizer, expressions, index_token_pool_size=50, momentum_token_pool_size=50):
-    # Function to replace indices with a new set of tokens for each expression
-    def replace_indices(token_list, index_map):
-        new_index = (f"INDEX_{i}" for i in range(index_token_pool_size))  # Local generator for new indices
-        new_tokens = []
-        for token in token_list:
-            if "INDEX_" in token:
-                if token not in index_map:
-                    try:
-                        index_map[token] = next(new_index)
-                    except StopIteration:
-                        # Handle the case where no more indices are available
-                        raise ValueError("Ran out of unique indices, increase token_pool_size")
-                new_tokens.append(index_map[token])
-            else:
-                new_tokens.append(token)
-        return new_tokens
-
-    def replace_momenta(token_list, index_map):
-        new_index = (f"MOMENTUM_{i}" for i in range(momentum_token_pool_size))  # Local generator for new indices
-        new_tokens = []
-        for token in token_list:
-            if "MOMENTUM_" in token:
-                if token not in index_map:
-                    try:
-                        index_map[token] = next(new_index)
-                    except StopIteration:
-                        # Handle the case where no more indices are available
-                        raise ValueError("Ran out of unique indices, increase momentum_token_pool_size")
-                new_tokens.append(index_map[token])
-            else:
-                new_tokens.append(token)
-        return new_tokens
-
-    normalized_expressions = []
-    # Replace indices in each expression randomly
-    for expr in expressions:
-        toks = tokenizer.src_tokenize(expr)
-        print(toks)
-        normalized_expressions.append(replace_momenta(replace_indices(toks, {}), {}))
-
-    return normalized_expressions

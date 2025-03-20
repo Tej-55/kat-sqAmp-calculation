@@ -179,7 +179,6 @@ def main():
     # Set epochs to a small number for initial testing, increase for better results
     trained_titans_model, history = train_titans_model(
         titans_model, 
-        # tokenizer,
         train_loader, 
         val_loader, 
         epochs=num_epochs, 

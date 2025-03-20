@@ -1,3 +1,6 @@
+# This code is adapted from titans-pytorch by lucidrains
+# Original source: https://github.com/lucidrains/titans-pytorch
+
 from __future__ import annotations
 from typing import Callable
 
