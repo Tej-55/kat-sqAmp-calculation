@@ -19,7 +19,7 @@ The preprocessing of amplitude expressions involves several key steps to normali
 
 ### Index Normalization
 
-The code uses regular expressions to identify and normalize different types of indices in the physics expressions:
+The code uses regular expressions to identify and normalize different types of terms in the expressions for the source data (Amplitudes):
 
 1. **Pattern for momentum indices**:
    ```python
@@ -37,11 +37,11 @@ The code uses regular expressions to identify and normalize different types of i
    ```python
    self.pattern_index = re.compile(r'\b\w+_\w+_\d{2,}\b')
    ```
-   This targets compound identifiers with two underscores where the final part is a numeric value with at least two digits, like `gamma_gam_166722`.
+   This targets compound identifiers with two underscores where the final part is a numeric value with at least two digits, like `e_eps_207381`, but these terms do not seem to appear in this dataset. 
 
 ### Normalization Process
 
-The normalization process replaces arbitrary large indices (like `_157721`) with sequential small indices (like `_1`, `_2`, etc.) while maintaining consistency. This preprocessing step reduces vocabulary size and is essential for effective training of both the T5 and TITANS models on the amplitude to squared amplitude mapping task.
+The normalization process replaces symbols with arbitrary large indices (like `_157721`) with sequential small indices (like `_1`, `_2`, etc.) while maintaining consistency. This is done because MARTY first creates these terms by cycling through the symbols and incrementally increasing the index. This preprocessing step reduces vocabulary size and is essential for effective training of both the T5 and TITANS models on the amplitude to squared amplitude mapping task.
 
 ## Models Implemented
 
