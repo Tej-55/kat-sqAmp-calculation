@@ -10,6 +10,7 @@ from transformers import T5ForConditionalGeneration
 import torch.distributed as dist
 from torch.nn.parallel import DistributedDataParallel as DDP
 from torch.utils.data.distributed import DistributedSampler
+from rational_kat_cu.KAN import KAN
 from utils.data_utils import get_data, load_data
 from utils.tokenizer import create_tokenizer
 from utils.train_utils import evaluate_sequence_accuracy, plot_training_history, train_model
@@ -130,6 +131,11 @@ def main():
     
     model = T5ForConditionalGeneration.from_pretrained('t5-small')
     model.resize_token_embeddings(len(src_vocab))
+    model.lm_head = KAN(
+        in_features=model.config.d_model,
+        out_features=model.config.vocab_size,
+        bias=False,
+    )
     
     # Move model to appropriate device
     device = torch.device(f'cuda:{args.local_rank}' if args.distributed else 'cuda:0' if torch.cuda.is_available() else 'cpu')
