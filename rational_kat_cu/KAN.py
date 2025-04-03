@@ -14,7 +14,7 @@ class KAN(nn.Module):
         super().__init__()
         out_features = out_features or in_features
         self.fc1 = nn.Linear(in_features, out_features, bias=bias)
-        self.act1 = KAT_Group(mode = act_cfg['act_init'][0])
+        self.act1 = KAT_Group(mode = act_cfg['act_init'][1])
 
 
     def forward(self, x):
