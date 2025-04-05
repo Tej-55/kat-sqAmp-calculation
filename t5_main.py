@@ -131,11 +131,25 @@ def main():
     
     model = T5ForConditionalGeneration.from_pretrained('t5-small')
     model.resize_token_embeddings(len(src_vocab))
-    model.lm_head = KAN(
+    
+    # Save weights from old lm_head
+    old_lm_head_weights = model.lm_head.weight.data.clone()
+    
+    # Define the new head
+    new_head = KAN(
         in_features=model.config.d_model,
         out_features=model.config.vocab_size,
         bias=False,
     )
+    
+    # Load weights into new head's fc1 layer
+    new_head.fc1.weight.data.copy_(old_lm_head_weights)
+    
+    # Replace the model's lm_head with the new head
+    model.lm_head = new_head
+    
+    # print(model.lm_head)
+    # print(model.lm_head.fc1.weight)
     
     # Move model to appropriate device
     device = torch.device(f'cuda:{args.local_rank}' if args.distributed else 'cuda:0' if torch.cuda.is_available() else 'cpu')
