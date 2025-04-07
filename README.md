@@ -1,4 +1,4 @@
-# Titans for Squared Amplitude Calculation
+# KAT for Squared Amplitude Calculation
 
 This repository implements and evaluates the Kolmogorov-Arnold Transformer for calculating squared amplitudes in particle physics. The project compares the performance of a standard T5 transformer model against the more advanced KAT architecture on this specialized task.
 
@@ -125,4 +125,4 @@ This code is adapted from the following sources:
 - KAT by Adamdad: https://github.com/Adamdad/kat
 - Skanformer by Riteshbhalerao11 : https://github.com/Riteshbhalerao11/Skanformer
 
-The project was developed as part of the Google Summer of Code application for the "Titans for squared amplitude calculation" project.
+The project was developed as part of the Google Summer of Code application for the "Next-Generation Transformer Models for Symbolic Calculations of Squared Amplitudes in HEP" project.
