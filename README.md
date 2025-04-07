@@ -1,6 +1,6 @@
 # Titans for Squared Amplitude Calculation
 
-This repository implements and evaluates the Memory As Context (MAC) Transformer architecture from Google's [Titans: Learning to Memorize at Test Time](https://arxiv.org/pdf/2501.00663) paper for calculating squared amplitudes in particle physics. The project compares the performance of a standard T5 transformer model against the more advanced Titans architecture on this specialized task.
+This repository implements and evaluates the Kolmogorov-Arnold Transformer for calculating squared amplitudes in particle physics. The project compares the performance of a standard T5 transformer model against the more advanced KAT architecture on this specialized task.
 
 ## Project Overview
 
@@ -51,11 +51,8 @@ A fixed pool of tokens is created for both index and momentum terms, ensuring a 
 ### 1. T5 Transformer (Baseline)
 A standard encoder-decoder transformer model using the Google's [T5 Small](https://huggingface.co/google-t5/t5-small) model.
 
-### 2. MAC Titans Model
-The Memory As Context Transformer architecture with:
-- Neural memory components for enhanced pattern recognition
-- Segmented attention for handling long sequences
-- Adaptive memory updates for learning complex transformations
+### 2. KAT
+GR-KAN is added instead of the regular feedforward network in the T5's architecture.
 
 ## Results
 
@@ -64,35 +61,30 @@ The Memory As Context Transformer architecture with:
 | Model | Test Sequence Accuracy | Test Token Accuracy |
 |-------|------------------------|---------------------|
 | T5 Transformer | 41.77% | 56.34% |
-| MAC Titans | 60.54% | 71.55% |
+| T5 KAT | 48.59% | 52.68% |
 
-The Titans model significantly outperforms the baseline T5 transformer, demonstrating its effectiveness for this task.
+The KAT model significantly outperforms the baseline T5 transformer, demonstrating its effectiveness for this task.
 
 ### Training Curves
 
 <div align="center">
   <img src="t5_output\training_history.png" width="45%" alt="T5 Training Loss"/>
-  <img src="Titans_output\training_history.png" width="45%" alt="Titans Training Loss"/>
+  <img src="kat_output\training_history.png" width="45%" alt="KAT Training Loss"/>
 </div>
-<p align="center"><i>Left: T5 Training Loss, Right: Titans Training Loss</i></p>
+<p align="center"><i>Left: T5 Training Loss, Right: KAT Training Loss</i></p>
 
 ## Repository Structure
 
 ```
 ├── data/                  # Data files and preprocessing scripts
 ├── t5_output/             # T5 model outputs and checkpoints
-├── Titans_output/         # Titans model outputs and checkpoints
-├── Titans/                # Titans architecture implementation
-│   ├── memory_models.py   # Memory model implementations
-│   ├── neural_memory.py   # Neural memory components
-│   ├── mac_transformer.py # Memory As Context Transformer
-│   └── associative_scan.py # Associative scan operations
+├── KAT_output/            # KAT model outputs and checkpoints
+├── KAT/                # KAT architecture implementation
 ├── utils/                 # Utility functions
 │   ├── data_utils.py      # Data loading and processing
 │   ├── tokenizer.py       # Custom tokenizer implementation
 │   └── train_utils.py     # Training and evaluation functions
 ├── t5_main.py             # T5 model training script
-├── Titans_main.py         # Titans model training script
 └── README.md              # This file
 ```
 
@@ -103,10 +95,6 @@ The Titans model significantly outperforms the baseline T5 transformer, demonstr
 The trained model weights are too large to be hosted on GitHub. You can download them from the following Google Drive location:
 
 [Download Model Weights](https://drive.google.com/drive/folders/1KDbJDqwSeiInFBvnL0iuImQRKYUG-kgV?usp=sharing)
-
-The folder contains:
-- `amplitude_model.pth` - T5 model weights
-- `Titans_model.pt` - MAC Titans model weights
 
 ### Prerequisites
 ```bash
@@ -122,23 +110,19 @@ python t5_main.py \
   --lr=5e-5
 ```
 
-### Training Titans Model
+### Training KAT Model
 ```bash
-python Titans_main.py \
+python t5_main.py \
+  --kat-mode=True \
   --batch_size=8 \
   --num_epochs=8 \
-  --lr=5e-5 \
-  --segment_len=512 \
-  --dim=128 \
-  --depth=6 \
-  --heads=8 \
-  --depth_mem=2
+  --lr=5e-5
 ```
 
 ## Acknowledgements
 
 This code is adapted from the following sources:
-- Titans-PyTorch by lucidrains: https://github.com/lucidrains/Titans-pytorch
+- KAT by Adamdad: https://github.com/Adamdad/kat
 - Skanformer by Riteshbhalerao11 : https://github.com/Riteshbhalerao11/Skanformer
 
 The project was developed as part of the Google Summer of Code application for the "Titans for squared amplitude calculation" project.
