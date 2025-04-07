@@ -10,6 +10,7 @@ from transformers import T5ForConditionalGeneration
 import torch.distributed as dist
 from torch.nn.parallel import DistributedDataParallel as DDP
 from torch.utils.data.distributed import DistributedSampler
+from rational_kat_cu.KAN import KAN
 from utils.data_utils import get_data, load_data
 from utils.tokenizer import create_tokenizer
 from utils.train_utils import evaluate_sequence_accuracy, plot_training_history, train_model
@@ -17,6 +18,7 @@ from utils.train_utils import evaluate_sequence_accuracy, plot_training_history,
 def input_args():
     parser = argparse.ArgumentParser(description='Train a T5 model for amplitude data')
     # Existing arguments
+    parser.add_argument('--kat-mode', type=bool, default=False, help='Use KAT mode')
     parser.add_argument('--batch_size', type=int, default=8, help='Batch size for training')
     parser.add_argument('--num_epochs', type=int, default=2, help='Number of epochs for training')
     parser.add_argument('--lr', type=float, default=5e-5, help='Learning rate for training')
@@ -130,6 +132,26 @@ def main():
     
     model = T5ForConditionalGeneration.from_pretrained('t5-small')
     model.resize_token_embeddings(len(src_vocab))
+    
+    if args.kat_mode:
+        # Save weights from old lm_head
+        old_lm_head_weights = model.lm_head.weight.data.clone()
+        
+        # Define the new head
+        new_head = KAN(
+            in_features=model.config.d_model,
+            out_features=model.config.vocab_size,
+            bias=False,
+        )
+        
+        # Load weights into new head's fc1 layer
+        new_head.fc1.weight.data.copy_(old_lm_head_weights)
+        
+        # Replace the model's lm_head with the new head
+        model.lm_head = new_head
+        
+        # print(model.lm_head)
+        # print(model.lm_head.fc1.weight)
     
     # Move model to appropriate device
     device = torch.device(f'cuda:{args.local_rank}' if args.distributed else 'cuda:0' if torch.cuda.is_available() else 'cpu')
